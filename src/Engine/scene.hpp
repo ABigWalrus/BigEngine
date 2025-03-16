@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ostream>
+#include <unordered_map>
 #include <vector>
 #include "entity.hpp"
 
@@ -19,5 +20,5 @@ public:
 private:
 
     int m_uuid;
-    std::vector<Entity> m_entities;
+    std::unordered_map<int, Entity> m_entities;
 };
