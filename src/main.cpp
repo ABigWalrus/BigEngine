@@ -1,7 +1,20 @@
 #include "Engine/app.hpp"
+#include "Engine/entity.hpp"
+#include "Engine/scene.hpp"
 #include <iostream>
+#include <iterator>
 #include <stdexcept>
 #include <cstdlib>
+
+void Application::setup() {
+    Scene scene{1};
+
+    Entity enitity3{3};
+    scene.add(Entity{2});
+    scene.add(std::move(enitity3));
+
+    std::cout << scene << std::endl;
+}
 
 int main() {
 
@@ -17,3 +30,20 @@ int main() {
     }
     return EXIT_SUCCESS;
 }
+
+// void setup() {
+//     Scene scene = new Scene(); // I may call a world later
+//     Enitity boris = new Entitity();
+//     Camera mainCamera = new Camera();
+    
+//     boris.bind(new RenderInformation(file));
+//     boris.bind(new Texture(file));
+
+//     scene.add(std::move(boris));
+//     scene.add(std::move(mainCamera));
+
+//     this.render(std::move(Scene));
+// }
+
+// app.setup();
+// app,run();

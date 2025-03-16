@@ -9,7 +9,9 @@ set(VULKAN_INCLUDE_DIRS "${VULKAN_SDK_PATH}/Include")
 # add_subdirectory(src)
 set(SOURCE_FILES
 	src/Engine/app.cpp
-	src/Engine/window.cpp
+	src/Engine/scene.cpp
+	src/Engine/entity.cpp
+	src/Render/window.cpp
 	src/Render/device.cpp
     src/Render/render.cpp
     src/main.cpp

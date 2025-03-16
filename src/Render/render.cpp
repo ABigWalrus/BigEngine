@@ -1,3 +1,5 @@
+#include "glm/fwd.hpp"
+#include <vulkan/vulkan_core.h>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
@@ -208,6 +210,12 @@ void Renderer::cleanup() {
     // glfwTerminate();
 }
 
+/**
+ * Here will be selected an image format and a color space of the surface
+ * In this case we select:
+ * - BRGA Image Format
+ * - Nonlinear SRGB
+ */
 VkSurfaceFormatKHR Renderer::chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats) {
     for (const auto& availableFormat : availableFormats) {
         if (availableFormat.format == VK_FORMAT_B8G8R8A8_SRGB && availableFormat.colorSpace == VK_COLOR_SPACE_SRGB_NONLINEAR_KHR) {
@@ -218,6 +226,12 @@ VkSurfaceFormatKHR Renderer::chooseSwapSurfaceFormat(const std::vector<VkSurface
     return availableFormats[0];
 }
 
+/**
+ * This function queries through Present Modes supported by device
+ * Present Modes define how the images are displayed on the screen
+ * - In our case we look for mailbox mode
+ * - If not found returns FIFO mode (It is like vsync on)
+ */
 VkPresentModeKHR Renderer::chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes) {
     for (const auto& availablePresentMode : availablePresentModes) {
         if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
@@ -229,6 +243,10 @@ VkPresentModeKHR Renderer::chooseSwapPresentMode(const std::vector<VkPresentMode
     return VK_PRESENT_MODE_FIFO_KHR;
 }
 
+/**
+ * Here the function looks for the extent (proportions) for the screen
+ * If not found returns the maximum screen (doesn't mean full screen)
+ */
 VkExtent2D Renderer::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities) {
     if (capabilities.currentExtent.width != std::numeric_limits<uint32_t>::max()) {
         return capabilities.currentExtent;
@@ -250,6 +268,14 @@ VkExtent2D Renderer::chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabiliti
     }
 }
 
+
+/**
+ * Creates the swap chain with:
+ * - Surface Format
+ * - Present Mode
+ * - Swap Extent
+ * - max possible image count
+ */
 void Renderer::createSwapChain() {
     SwapChainSupportDetails swapChainSupport = bigDevice.querySwapChainSupport(bigDevice.getPhysicalDevice());
 
@@ -342,6 +368,14 @@ void Renderer::createImageViews() {
     }
 }
 
+/**
+ * This function configures the graphics pipeline
+ * - With vertex and fragment shader stages
+ * - The description of bindings and attributes
+ * - The geometric topology (in this case this is triangles)
+ * - Rasterizer, viewport, multisampling, color blending, dynamic states, depth stencil
+ * - Pipeline layout
+ */
 void Renderer::createGraphicsPipeline() {
     auto vertShaderCode = readFile("../assets/shaders/vert.spv");
     auto fragShaderCode = readFile("../assets/shaders/frag.spv");
@@ -369,8 +403,8 @@ void Renderer::createGraphicsPipeline() {
     VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
     vertexInputInfo.vertexBindingDescriptionCount = 1;
-    vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());;
-    vertexInputInfo.pVertexBindingDescriptions = &bindingDescription;; // Optional
+    vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size()); // Here we pass the number of attributes (position, color and uv)
+    vertexInputInfo.pVertexBindingDescriptions = &bindingDescription; // Optional
     vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data(); // Optional
 
     VkPipelineInputAssemblyStateCreateInfo inputAssembly{};
@@ -1037,7 +1071,8 @@ void Renderer::updateUniformBuffer(uint32_t currentImage){
     float time = std::chrono::duration<float, std::chrono::seconds::period>(currentTime - startTime).count();
 
     UniformBufferObject ubo{};
-    ubo.model = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+    ubo.model = glm::mat4(1.0f);
+    // ubo.model = glm::rotate(glm::mat4(1.0f), time * glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
     ubo.view = glm::lookAt(glm::vec3(2.0f, 2.0f, 2.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
     ubo.proj = glm::perspective(glm::radians(45.0f), swapChainExtent.width / (float) swapChainExtent.height, 0.1f, 10.0f);
     ubo.proj[1][1] *= -1;

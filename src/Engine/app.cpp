@@ -4,10 +4,11 @@
 
 #include "app.hpp"
 #include "Render/render.hpp"
-#include "window.hpp"
+// #include "window.hpp"
 
 Application::Application(){
     init();
+    setup();
 }
 
 Application::~Application(){

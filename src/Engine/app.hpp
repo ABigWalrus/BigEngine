@@ -1,12 +1,16 @@
 #pragma once
 
-#include "window.hpp"
-#include "../Render/device.hpp"
-#include "../Render/render.hpp"
+#include "Render/window.hpp"
+#include "Render/device.hpp"
+#include "Render/render.hpp"
+#include "scene.hpp"
+#include "entity.hpp"
+
 #include <string>
 
 class Application{
 public:
+
     // std::string name;
     // uint64_t renders = 0;
     static constexpr uint32_t WIDTH = 1600;
@@ -16,6 +20,7 @@ public:
     ~Application();
  //std::string name, uint32_t width, uint32_t height);
     void run();
+    virtual void setup();
     // void init();
     // void cleanup();
 
