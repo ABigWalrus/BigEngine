@@ -1,24 +1,19 @@
 #pragma once
 
+#include "entity.hpp"
 #include <ostream>
 #include <unordered_map>
-#include <vector>
-#include "entity.hpp"
 
-
-
-class Scene{
-public:
-    
+class Scene {
+  public:
     Scene();
     ~Scene();
-    
-    void add(Entity&& enitity);
 
-    friend std::ostream& operator<<(std::ostream& os, const Scene& scene);
+    void add(Entity &&enitity);
 
-private:
+    friend std::ostream &operator<<(std::ostream &os, const Scene &scene);
 
+  private:
     int m_uuid;
     std::unordered_map<int, Entity> m_entities;
 };

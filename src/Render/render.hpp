@@ -12,13 +12,12 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
 
-#include "device.hpp"
 #include "./window.hpp"
+#include "device.hpp"
 
-#include <vector>
 #include <optional>
 #include <string>
-
+#include <vector>
 
 struct Vertex {
     glm::vec3 pos;
@@ -27,29 +26,29 @@ struct Vertex {
 
     static VkVertexInputBindingDescription getBindingDescription();
 
-    static std::array<VkVertexInputAttributeDescription, 3> getAttributeDescriptions();
-    bool operator==(const Vertex& other) const;
-}; 
+    static std::array<VkVertexInputAttributeDescription, 3>
+    getAttributeDescriptions();
+    bool operator==(const Vertex &other) const;
+};
 /**
  * Uniform Buffer Class
- * 
- * Contains: Model Matrix, View Matrix, Projection Matrix 
- * 
-*/
+ *
+ * Contains: Model Matrix, View Matrix, Projection Matrix
+ *
+ */
 struct UniformBufferObject {
     alignas(16) glm::mat4 model;
     alignas(16) glm::mat4 view;
     alignas(16) glm::mat4 proj;
 };
 
-
-namespace Big{
+namespace Big {
 /**
  * A Renderer class.
- * 
-*/
+ *
+ */
 class Renderer {
-public:
+  public:
     // GLFWwindow* window;
 
     // void init();
@@ -61,17 +60,19 @@ public:
 
     Renderer(const Renderer &) = delete;
     Renderer &operator=(const Renderer &) = delete;
-private:
-    uint32_t WIDTH = 0;   // Window width
-    uint32_t HEIGHT = 0;  // Window height
 
-    uint32_t currentFrame = 0;  // The current frame: could be only mod values of MAX_FRAMES_IN_FLIGHT
-    
+  private:
+    uint32_t WIDTH = 0;  // Window width
+    uint32_t HEIGHT = 0; // Window height
+
+    uint32_t currentFrame = 0; // The current frame: could be only mod values of
+                               // MAX_FRAMES_IN_FLIGHT
+
     bool framebufferResized = false;
     uint32_t mipLevels;
 
-    std::vector<Vertex> vertices;   // Array of vertices that go to vertex buffer
-    std::vector<uint32_t> indices;  // Array of the corrsponding indices
+    std::vector<Vertex> vertices;  // Array of vertices that go to vertex buffer
+    std::vector<uint32_t> indices; // Array of the corrsponding indices
 
     Big::Window &bigWindow;
     Big::Device &bigDevice;
@@ -104,12 +105,12 @@ private:
 
     std::vector<VkBuffer> uniformBuffers;
     std::vector<VkDeviceMemory> uniformBuffersMemory;
-    std::vector<void*> uniformBuffersMapped;
+    std::vector<void *> uniformBuffersMapped;
 
     VkImage depthImage;
     VkDeviceMemory depthImageMemory;
     VkImageView depthImageView;
-    
+
     VkImage textureImage;
     VkDeviceMemory textureImageMemory;
     VkImageView textureImageView;
@@ -126,17 +127,19 @@ private:
 
     void initVulkan();
 
-    VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+    VkSurfaceFormatKHR chooseSwapSurfaceFormat(
+        const std::vector<VkSurfaceFormatKHR> &availableFormats);
 
-    VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR>& availablePresentModes);
+    VkPresentModeKHR chooseSwapPresentMode(
+        const std::vector<VkPresentModeKHR> &availablePresentModes);
 
-    VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+    VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR &capabilities);
 
     void createSwapChain();
     void createImageViews();
     void createGraphicsPipeline();
 
-    VkShaderModule createShaderModule(const std::vector<char>& code);
+    VkShaderModule createShaderModule(const std::vector<char> &code);
 
     void createRenderPass();
 
@@ -146,8 +149,9 @@ private:
 
     void createCommandBuffers();
 
-    void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex);
-    
+    void recordCommandBuffer(VkCommandBuffer commandBuffer,
+                             uint32_t imageIndex);
+
     void createSyncObjects();
 
     void drawFrame();
@@ -156,50 +160,66 @@ private:
 
     void cleanupSwapChain();
 
-    static void framebufferResizeCallback(GLFWwindow* window, int width, int height);
+    static void framebufferResizeCallback(GLFWwindow *window, int width,
+                                          int height);
 
     void createVertexBuffer();
 
-    uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
+    uint32_t findMemoryType(uint32_t typeFilter,
+                            VkMemoryPropertyFlags properties);
 
-    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
-    
+    void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage,
+                      VkMemoryPropertyFlags properties, VkBuffer &buffer,
+                      VkDeviceMemory &bufferMemory);
+
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
 
     void createIndexBuffer();
 
     void createDescriptorSetLayout();
-    
+
     void createUniformBuffers();
 
     void updateUniformBuffer(uint32_t currentImage);
 
     void createDescriptorPool();
-    
+
     void createDescriptorSets();
 
     void createTextureImage();
 
-    void generateMipmaps(VkImage image, VkFormat imageFormat, int32_t texWidth, int32_t texHeight, uint32_t mipLevels);
+    void generateMipmaps(VkImage image, VkFormat imageFormat, int32_t texWidth,
+                         int32_t texHeight, uint32_t mipLevels);
 
-    void createImage(uint32_t width, uint32_t height, uint32_t mipLevels, VkSampleCountFlagBits numSamples, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usage, VkMemoryPropertyFlags properties, VkImage& image, VkDeviceMemory& imageMemory);
+    void createImage(uint32_t width, uint32_t height, uint32_t mipLevels,
+                     VkSampleCountFlagBits numSamples, VkFormat format,
+                     VkImageTiling tiling, VkImageUsageFlags usage,
+                     VkMemoryPropertyFlags properties, VkImage &image,
+                     VkDeviceMemory &imageMemory);
 
     VkCommandBuffer beginSingleTimeCommands();
 
     void endSingleTimeCommands(VkCommandBuffer commandBuffer);
-    void transitionImageLayout(VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, uint32_t mipLevels);
+    void transitionImageLayout(VkImage image, VkFormat format,
+                               VkImageLayout oldLayout, VkImageLayout newLayout,
+                               uint32_t mipLevels);
 
-    void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width, uint32_t height);
-    
+    void copyBufferToImage(VkBuffer buffer, VkImage image, uint32_t width,
+                           uint32_t height);
+
     void createTextureImageView();
 
-    VkImageView createImageView(VkImage image, VkFormat format, VkImageAspectFlags  aspectFlags, uint32_t mipLevels);
-    
+    VkImageView createImageView(VkImage image, VkFormat format,
+                                VkImageAspectFlags aspectFlags,
+                                uint32_t mipLevels);
+
     void createTextureSampler();
 
     void createDepthResources();
 
-    VkFormat findSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+    VkFormat findSupportedFormat(const std::vector<VkFormat> &candidates,
+                                 VkImageTiling tiling,
+                                 VkFormatFeatureFlags features);
 
     VkFormat findDepthFormat();
 
@@ -208,5 +228,5 @@ private:
     void loadModel(std::string model_path);
 
     void createColorResources();
-};  
-}
+};
+} // namespace Big

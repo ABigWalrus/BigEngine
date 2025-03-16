@@ -1,5 +1,5 @@
 #pragma once
 
 namespace util {
-    int generate_uuid();
+int generate_uuid();
 }
