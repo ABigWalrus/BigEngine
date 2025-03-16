@@ -9,15 +9,15 @@
 class Scene{
 public:
     
-    Scene(int uuid);
+    Scene();
     ~Scene();
     
     void add(Entity&& enitity);
 
-    // int get_uuid();
-
     friend std::ostream& operator<<(std::ostream& os, const Scene& scene);
+
 private:
-    int _uuid;
-    std::vector<Entity> _entities;
+
+    int m_uuid;
+    std::vector<Entity> m_entities;
 };

@@ -11,6 +11,7 @@ set(SOURCE_FILES
 	src/Engine/app.cpp
 	src/Engine/scene.cpp
 	src/Engine/entity.cpp
+	src/Engine/utility.cpp
 	src/Render/window.cpp
 	src/Render/device.cpp
     src/Render/render.cpp

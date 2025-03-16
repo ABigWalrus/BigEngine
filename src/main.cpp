@@ -7,10 +7,10 @@
 #include <cstdlib>
 
 void Application::setup() {
-    Scene scene{1};
+    Scene scene;
 
-    Entity enitity3{3};
-    scene.add(Entity{2});
+    Entity enitity3;
+    scene.add(Entity{});
     scene.add(std::move(enitity3));
 
     std::cout << scene << std::endl;
