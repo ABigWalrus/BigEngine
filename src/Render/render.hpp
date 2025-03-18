@@ -12,24 +12,25 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
 
-#include "./window.hpp"
 #include "device.hpp"
+#include "info.hpp"
+#include "window.hpp"
 
 #include <optional>
 #include <string>
 #include <vector>
 
-struct Vertex {
-    glm::vec3 pos;
-    glm::vec3 color;
-    glm::vec2 texCoord;
+// struct Vertex {
+//     glm::vec3 pos;
+//     glm::vec3 color;
+//     glm::vec2 texCoord;
 
-    static VkVertexInputBindingDescription getBindingDescription();
+//     static VkVertexInputBindingDescription getBindingDescription();
 
-    static std::array<VkVertexInputAttributeDescription, 3>
-    getAttributeDescriptions();
-    bool operator==(const Vertex &other) const;
-};
+//     static std::array<VkVertexInputAttributeDescription, 3>
+//     getAttributeDescriptions();
+//     bool operator==(const Vertex &other) const;
+// };
 /**
  * Uniform Buffer Class
  *
@@ -71,11 +72,14 @@ class Renderer {
     bool framebufferResized = false;
     uint32_t mipLevels;
 
-    std::vector<Vertex> vertices;  // Array of vertices that go to vertex buffer
-    std::vector<uint32_t> indices; // Array of the corrsponding indices
+    // std::vector<Vertex> vertices;  // Array of vertices that go to vertex
+    // buffer std::vector<uint32_t> indices; // Array of the corrsponding
+    // indices
 
     Big::Window &bigWindow;
     Big::Device &bigDevice;
+
+    RenderInformation &infor;
 
     VkSwapchainKHR swapChain;
 
