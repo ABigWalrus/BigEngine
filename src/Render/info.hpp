@@ -3,6 +3,7 @@
 #include "render.hpp"
 
 #include <glm/glm.hpp>
+#include <string>
 #include <vector>
 #include <vulkan/vulkan.h>
 
@@ -19,9 +20,17 @@ struct Vertex {
 };
 
 class RenderInformation {
-    friend Big::Renderer;
+  public:
+    RenderInformation(std::string model_path);
+    ~RenderInformation();
 
   private:
+    friend Big::Renderer;
+    static Big::Renderer *m_renderer;
+
+    std::string m_model_path;
+    int m_uuid;
+
     std::vector<Vertex> m_vertices;
     std::vector<uint32_t> m_indices;
 };

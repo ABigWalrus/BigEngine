@@ -1,4 +1,5 @@
 #include "info.hpp"
+#include "../Engine/utility.hpp"
 
 VkVertexInputBindingDescription Vertex::getBindingDescription() {
 
@@ -47,3 +48,8 @@ template <> struct hash<Vertex> {
     }
 };
 } // namespace std
+
+RenderInformation::RenderInformation(std::string model_path)
+    : m_model_path{model_path}, m_uuid(util::generate_uuid()) {
+    m_renderer->add(puk);
+}

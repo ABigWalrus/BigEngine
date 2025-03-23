@@ -1,5 +1,6 @@
 #pragma once
 
+#include <unordered_map>
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 #include <vulkan/vulkan.h>
@@ -55,6 +56,7 @@ class Renderer {
     // void init();
     void render();
     void cleanup();
+    void add(RenderInformation info);
 
     Renderer(Big::Window &window, Big::Device &device);
     ~Renderer();
@@ -79,7 +81,7 @@ class Renderer {
     Big::Window &bigWindow;
     Big::Device &bigDevice;
 
-    RenderInformation &infor;
+    std::unordered_map<int, RenderInformation> m_info_map;
 
     VkSwapchainKHR swapChain;
 

@@ -1,3 +1,4 @@
+#include "Render/info.hpp"
 #include "glm/fwd.hpp"
 #include <vulkan/vulkan_core.h>
 #define GLFW_INCLUDE_VULKAN
@@ -126,11 +127,14 @@ Renderer::Renderer(Big::Window &window, Big::Device &device)
     : bigWindow{window}, bigDevice{device} {
     WIDTH = bigWindow.getWidth();
     HEIGHT = bigWindow.getHeight();
+    RenderInformation::m_renderer = this;
     initVulkan();
     bigWindow.setFramebufferSizeCallback(framebufferResizeCallback);
 }
 
 Renderer::~Renderer() { cleanup(); }
+
+void Renderer::add(int info) { std::cout << "puk"; }
 
 void Renderer::initVulkan() {
     createSwapChain();
