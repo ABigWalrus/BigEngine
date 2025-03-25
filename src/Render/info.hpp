@@ -12,10 +12,10 @@ struct Vertex {
     glm::vec3 color;
     glm::vec2 texCoord;
 
-    static VkVertexInputBindingDescription getBindingDescription();
+    static VkVertexInputBindingDescription get_binding_description();
 
     static std::array<VkVertexInputAttributeDescription, 3>
-    getAttributeDescriptions();
+    get_attribute_descriptions();
     bool operator==(const Vertex &other) const;
 };
 

@@ -1,31 +1,32 @@
 #include "device.hpp"
+#include "Render/window.hpp"
 
 #include <cstring>
 #include <iostream>
-#include <set>
 #include <stdexcept>
 
 namespace Big {
-bool QueueFamilyIndices::isComplete() {
-    return graphicsFamily.has_value() && presentFamily.has_value();
+bool QueueFamilyIndices::is_complete() {
+    return graphics_family.has_value() && present_family.has_value();
 }
 
-VkResult createDebugUtilsMessengerEXT(
-    VkInstance instance, const VkDebugUtilsMessengerCreateInfoEXT *pCreateInfo,
-    const VkAllocationCallbacks *pAllocator,
-    VkDebugUtilsMessengerEXT *pDebugMessenger) {
+VkResult create_debug_utils_messengerEXT(
+    VkInstance instance,
+    const VkDebugUtilsMessengerCreateInfoEXT *p_create_info,
+    const VkAllocationCallbacks *p_allocator,
+    VkDebugUtilsMessengerEXT *p_debug_messenger) {
     auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
         instance, "vkCreateDebugUtilsMessengerEXT");
     if (func != nullptr) {
-        return func(instance, pCreateInfo, pAllocator, pDebugMessenger);
+        return func(instance, p_create_info, p_allocator, p_debug_messenger);
     } else {
         return VK_ERROR_EXTENSION_NOT_PRESENT;
     }
 }
 
-void DestroyDebugUtilsMessengerEXT(VkInstance instance,
-                                   VkDebugUtilsMessengerEXT debugMessenger,
-                                   const VkAllocationCallbacks *pAllocator) {
+void destroy_debug_utils_messengerEXT(VkInstance instance,
+                                      VkDebugUtilsMessengerEXT debugMessenger,
+                                      const VkAllocationCallbacks *pAllocator) {
     auto func = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
         instance, "vkDestroyDebugUtilsMessengerEXT");
     if (func != nullptr) {
@@ -33,38 +34,41 @@ void DestroyDebugUtilsMessengerEXT(VkInstance instance,
     }
 }
 
-Device::Device(Window &window) : window{window} { init(); }
+Device::Device(std::shared_ptr<Window> const &window) : m_window{window} {
+    init();
+}
 
 Device::~Device() { cleanup(); }
 
 void Device::init() {
-    createInstance();
-    setupDebugMessenger();
-    createSurface();
-    pickPhysicalDevice();
-    createLogicalDevice();
+    create_instance();
+    setup_debug_messenger();
+    create_surface();
+    pick_physical_device();
+    create_logical_device();
 }
 
 void Device::cleanup() {
     // vkDeviceWaitIdle(device);
-    vkDestroyDevice(device, nullptr);
+    vkDestroyDevice(m_device, nullptr);
 
-    if (enableValidationLayers) {
-        DestroyDebugUtilsMessengerEXT(instance, debugMessenger, nullptr);
+    if (ENABLE_VALIDATION_LAYERS) {
+        destroy_debug_utils_messengerEXT(m_instance, m_debug_messenger,
+                                         nullptr);
     }
-    vkDestroySurfaceKHR(instance, surface, nullptr);
-    vkDestroyInstance(instance, nullptr);
+    vkDestroySurfaceKHR(m_instance, m_surface, nullptr);
+    vkDestroyInstance(m_instance, nullptr);
 }
 
-VkDevice Device::getDevice() { return device; }
+VkDevice Device::get_device() { return m_device; }
 
-VkPhysicalDevice Device::getPhysicalDevice() { return physicalDevice; }
+VkPhysicalDevice Device::get_physical_device() { return m_physical_device; }
 
-VkSurfaceKHR Device::getVkSurface() { return surface; }
+VkSurfaceKHR Device::get_surface() { return m_surface; }
 
-VkSampleCountFlagBits Device::getMsaaSamples() { return msaaSamples; }
+VkSampleCountFlagBits Device::get_msaa_samples() { return m_msaa_samples; }
 
-VkQueue Device::getGraphicsQueue() { return graphicsQueue; }
+VkQueue Device::get_graphics_queue() { return m_graphics_queue; }
 
 VkQueue Device::getPresentQueue() { return presentQueue; }
 

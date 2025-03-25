@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stdint.h>
+
+using UUID = uint32_t;
 namespace util {
-int generate_uuid();
-}
+UUID generate_uuid();
+} // namespace util
