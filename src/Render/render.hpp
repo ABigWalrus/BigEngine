@@ -15,7 +15,7 @@
 #include <glm/gtx/hash.hpp>
 
 #include "device.hpp"
-#include "info.hpp"
+// #include "info.hpp"
 #include "window.hpp"
 
 #include <optional>
@@ -59,7 +59,7 @@ class Renderer {
     void cleanup();
 
     Renderer(std::shared_ptr<Big::Window> const &window,
-             std::unique_ptr<Big::Device> const &device);
+             std::shared_ptr<Big::Device> const &device);
     ~Renderer();
 
     Renderer(const Renderer &) = delete;
@@ -80,7 +80,7 @@ class Renderer {
     // indices
 
     std::shared_ptr<Big::Window> m_window;
-    std::unique_ptr<Big::Device> m_device;
+    std::shared_ptr<Big::Device> m_device;
 
     VkSwapchainKHR m_swap_chain;
 
@@ -112,9 +112,9 @@ class Renderer {
     std::vector<VkDeviceMemory> m_uniform_buffers_memory;
     std::vector<void *> m_uniform_buffers_mapped;
 
-    VkImage depthImage;
-    VkDeviceMemory depthImageMemory;
-    VkImageView depthImageView;
+    VkImage depth_image;
+    VkDeviceMemory depth_image_memory;
+    VkImageView depth_image_view;
 
     VkImage m_texture_image;
     VkDeviceMemory m_texture_image_memory;
@@ -170,7 +170,7 @@ class Renderer {
     static void framebuffer_resize_callback(GLFWwindow *window, int width,
                                             int height);
 
-    void createVertexBuffer();
+    void create_vertex_buffer();
 
     uint32_t find_memory_type(uint32_t type_filter,
                               VkMemoryPropertyFlags properties);
