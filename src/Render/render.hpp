@@ -112,9 +112,9 @@ class Renderer {
     std::vector<VkDeviceMemory> m_uniform_buffers_memory;
     std::vector<void *> m_uniform_buffers_mapped;
 
-    VkImage depth_image;
-    VkDeviceMemory depth_image_memory;
-    VkImageView depth_image_view;
+    VkImage m_depth_image;
+    VkDeviceMemory m_depth_image_memory;
+    VkImageView m_depth_image_view;
 
     VkImage m_texture_image;
     VkDeviceMemory m_texture_image_memory;
