@@ -29,7 +29,7 @@ class Window {
     void window_wait_events();
 
   private:
-    std::string title;
+    std::string m_title;
 
     const uint32_t width;
     const uint32_t heigth;

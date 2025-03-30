@@ -15,6 +15,8 @@ set(SOURCE_FILES
 	src/Render/window.cpp
 	src/Render/device.cpp
     src/Render/render.cpp
+	src/Render/system.cpp
+	src/Render/info.cpp
     src/main.cpp
 )
 add_executable(

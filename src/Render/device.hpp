@@ -54,7 +54,7 @@ struct SwapChainSupportDetails {
 
 class Device {
   public:
-    Device(std::shared_ptr<Window> const &window);
+    Device(std::shared_ptr<Window> window);
     ~Device();
 
     Device(const Device &) = delete;

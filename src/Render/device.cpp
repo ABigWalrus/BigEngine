@@ -35,9 +35,7 @@ void destroy_debug_utils_messengerEXT(VkInstance instance,
     }
 }
 
-Device::Device(std::shared_ptr<Window> const &window) : m_window{window} {
-    init();
-}
+Device::Device(std::shared_ptr<Window> window) : m_window{window} { init(); }
 
 Device::~Device() { cleanup(); }
 

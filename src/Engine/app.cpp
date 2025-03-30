@@ -14,9 +14,9 @@ Application::Application() {
 Application::~Application() { cleanup(); }
 
 void Application::run() {
-    while (window.isOpen()) {
+    while (m_window->is_open()) {
         glfwPollEvents();
-        renderer.render();
+        m_system.run();
     }
 }
 

@@ -11,18 +11,20 @@
 
 class RenderSystem {
   public:
-    RenderSystem(std::shared_ptr<Big::Window> const &window);
+    RenderSystem(std::shared_ptr<Big::Window> window);
     ~RenderSystem();
 
-    UUID create_info(std::string model_path);
-    RenderInformation *get_info(UUID uuid);
+    // UUID create_info(std::string model_path);
+    // RenderInformation *get_info(UUID uuid);
 
     void update();
+    void run();
 
   private:
     std::shared_ptr<Big::Window> m_window;
     std::shared_ptr<Big::Device> m_device;
-    std::unique_ptr<Big::Renderer> m_renderer;
+    std::shared_ptr<RenderInformation> m_info;
+    std::shared_ptr<Big::Renderer> m_renderer;
 
-    std::unordered_map<UUID, RenderInformation> m_info_map;
+    // std::unordered_map<UUID, RenderInformation> m_info_map;
 };

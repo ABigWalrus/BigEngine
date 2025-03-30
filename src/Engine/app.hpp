@@ -2,10 +2,12 @@
 
 #include "Render/device.hpp"
 #include "Render/render.hpp"
+#include "Render/system.hpp"
 #include "Render/window.hpp"
 #include "entity.hpp"
 #include "scene.hpp"
 
+#include <memory>
 #include <string>
 
 class Application {
@@ -24,9 +26,11 @@ class Application {
     // void cleanup();
 
   private:
-    Big::Window window{"TEST WINDOW", WIDTH, HEIGTH};
-    Big::Device device{window};
-    Big::Renderer renderer{window, device};
+    std::shared_ptr<Big::Window> m_window =
+        std::make_shared<Big::Window>("TEST WINDOW", WIDTH, HEIGTH);
+    RenderSystem m_system{m_window};
+    // Big::Device device{window};
+    // Big::Renderer renderer{window, device};
 
     // void initWindow();
     // void mainLoop();

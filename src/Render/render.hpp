@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Render/info.hpp"
 #include <memory>
 #include <unordered_map>
 #define GLFW_INCLUDE_VULKAN
@@ -58,14 +59,18 @@ class Renderer {
     void render();
     void cleanup();
 
-    Renderer(std::shared_ptr<Big::Window> const &window,
-             std::shared_ptr<Big::Device> const &device);
+    Renderer(std::shared_ptr<Window> window, std::shared_ptr<Device> device,
+             std::shared_ptr<RenderInformation> render_info);
     ~Renderer();
 
     Renderer(const Renderer &) = delete;
     Renderer &operator=(const Renderer &) = delete;
 
   private:
+    std::shared_ptr<Window> m_window;
+    std::shared_ptr<Device> m_device;
+    std::shared_ptr<RenderInformation> m_render_info;
+
     uint32_t m_width = 0;  // Window width
     uint32_t m_height = 0; // Window height
 
@@ -78,9 +83,6 @@ class Renderer {
     // std::vector<Vertex> vertices;  // Array of vertices that go to vertex
     // buffer std::vector<uint32_t> indices; // Array of the corrsponding
     // indices
-
-    std::shared_ptr<Big::Window> m_window;
-    std::shared_ptr<Big::Device> m_device;
 
     VkSwapchainKHR m_swap_chain;
 
@@ -234,7 +236,7 @@ class Renderer {
 
     bool has_stencil_component(VkFormat format);
 
-    void load_model(std::string model_path);
+    // void load_model(std::string model_path);
 
     void create_color_resources();
 };
