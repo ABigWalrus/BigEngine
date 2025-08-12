@@ -1,0 +1,12 @@
+*.obj
+*.bat
+*.spv
+*.jpg
+*.png
+
+[Bb][Uu][Ii][Ll][Dd]
+
+.cache/*
+.vscode/*
+.idea/*
+external/
