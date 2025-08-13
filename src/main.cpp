@@ -17,14 +17,14 @@
 // }
 
 int main() {
-  // Entity ent = spawn_entity();
-  Component cmp = spawn_component();
-  Component cmp2 = spawn_component();
-  // ent.add_component(cmp);
-  // ent.add_component(cmp2);
-  // Entity ent2 = spawn_entity();
-  // ent.add_child(ent2);
-  // ent.translate(glm::vec3{1, 1, 1});
-  // std::cout << ent << "\n";
-  // std::cout << cmp << "\n";
+    // Entity ent = spawn_entity();
+    Component cmp = spawn_component();
+    Component cmp2 = spawn_component();
+    // ent.add_component(cmp);
+    // ent.add_component(cmp2);
+    // Entity ent2 = spawn_entity();
+    // ent.add_child(ent2);
+    // ent.translate(glm::vec3{1, 1, 1});
+    // std::cout << ent << "\n";
+    // std::cout << cmp << "\n";
 }

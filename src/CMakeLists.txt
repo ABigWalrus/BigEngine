@@ -16,4 +16,4 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 
 
-target_link_libraries(${PROJECT_NAME} glfw ${Vulkan_LIBRARIES} glm::glm Catch2::Catch2)
+target_link_libraries(${PROJECT_NAME} glfw ${Vulkan_LIBRARIES} glm::glm)

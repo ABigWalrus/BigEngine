@@ -10,3 +10,4 @@
 .vscode/*
 .idea/*
 external/
+!external/CMakeLists.txt

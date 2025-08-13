@@ -8,7 +8,7 @@ set(VULKAN_INCLUDE_DIRS "${VULKAN_SDK_PATH}/Include")
 
 add_subdirectory(external)
 add_subdirectory(src)
-# add_subdirectory(test)
+add_subdirectory(test)
 
 
 find_program(GLSL_VALIDATOR glslangValidator HINTS 
