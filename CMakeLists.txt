@@ -8,6 +8,7 @@ set(VULKAN_INCLUDE_DIRS "${VULKAN_SDK_PATH}/Include")
 
 add_subdirectory(external)
 add_subdirectory(src)
+enable_testing()
 add_subdirectory(test)
 
 

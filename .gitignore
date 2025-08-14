@@ -9,5 +9,8 @@
 .cache/*
 .vscode/*
 .idea/*
-external/
-!external/CMakeLists.txt
+external/glfw
+external/glm
+external/Catch2
+external/stb
+external/tinyobjloader

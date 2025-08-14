@@ -7,15 +7,18 @@ import argparse
 
 PROJECET_NAME = 'BigEngine'
 GENERATOR = 'Ninja'
+WD = './build'
+SD = '.'
+
 
 def cmake_build_project():
-    if not os.path.exists('./build'):
-        os.mkdir('build')
+    if not os.path.exists(WD):
+        os.mkdir(WD)
 
     command = []
     command.append('cmake')
-    command.append('-S .')
-    command.append('-B ./build')
+    command.append('-S ' + SD)
+    command.append('-B ' + WD)
     command.append('-G ' + GENERATOR)
     command.append('-D GLFW_BUILD_X11=1')
     command.append('-D GLFW_BUILD_WAYLAND=0')
@@ -27,14 +30,16 @@ def build_project():
     command = []
     command.append('cmake')
     command.append('--build')
-    command.append('./build')
+    command.append(WD)
     command.append('-j 12')
 
     subprocess.run(command)
 
 def run_project():
-    subprocess.run(['./build/src/' + PROJECET_NAME])
+    subprocess.run(['./src/' + PROJECET_NAME], cwd=WD)
 
+def run_test():
+    subprocess.run(['ctest'], cwd=WD)
 
 
 def main():
@@ -42,14 +47,18 @@ def main():
     # subparsers = parser.add_subparsers(dest="sub_command", required=True)
     subparsers = parser.add_subparsers(dest="sub_command")
 
-    run_subparser = subparsers.add_parser("run", help="Run the application")
-    build_subparser = subparsers.add_parser("build", help="Build the project")
+    subparsers.add_parser("run", help="Run the application")
+    subparsers.add_parser("build", help="Build the project")
+    subparsers.add_parser("test", help="Test your project")
 
     args = parser.parse_args()
 
     if args.sub_command == 'run':
         build_project()
         run_project()
+    elif args.sub_command == 'test':
+        build_project()
+        run_test()
     elif args.sub_command == 'build':
         cmake_build_project()
         build_project()
