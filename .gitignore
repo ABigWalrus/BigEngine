@@ -9,8 +9,3 @@
 .cache/*
 .vscode/*
 .idea/*
-external/glfw
-external/glm
-external/Catch2
-external/stb
-external/tinyobjloader
