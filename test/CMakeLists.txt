@@ -7,7 +7,7 @@ add_executable(tests ${TEST_SOURCES})
 target_include_directories(
     tests
     PUBLIC
-    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/include"
 )
 
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain ${PROJECT_NAME_LIB} glm)

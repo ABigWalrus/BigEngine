@@ -1,19 +1,19 @@
 set(SOURCE_FILES
-  entity.cpp
+  core.cpp
 )
 
 set(PROJECT_NAME_LIB "${PROJECT_NAME}lib")
 
 add_library(
-    "${PROJECT_NAME}lib"
-	${SOURCE_FILES}
+  "${PROJECT_NAME}lib"
+  ${SOURCE_FILES}
 )
 
 
 target_include_directories("${PROJECT_NAME}lib" PUBLIC
 	${VULKAN_INCLUDE_DIRS}
   ${EXTERNAL_INCLUDES}
-	./
+  "${CMAKE_SOURCE_DIR}/include"
 )
 
 
