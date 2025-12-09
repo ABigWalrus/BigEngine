@@ -7,8 +7,8 @@ set(
   EXTERNAL_INCLUDES
   glfw/include
   glm
-  stb
-  tinyobjloader
+  # stb
+  # tinyobjloader
 ) 
 # target_include_directories(${PROJECT_NAME} PUBLIC
 # 	glfw/include
