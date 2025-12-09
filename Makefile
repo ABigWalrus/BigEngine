@@ -9,7 +9,7 @@ EXEC := BigEngine
 
 $(BUILD_DIR)/build.ninja: $(CMAKE_FILES)
 	@mkdir -p build
-	@cmake -D GLFW_BUILD_X11=1 -D GLFW_BUILD_WAYLAND=0 DCMAKE_EXPORT_COMPILE_COMMANDS -S . -B $(BUILD_DIR) -G $(GENERATOR) 
+	@cmake -D GLFW_BUILD_X11=1 -D GLFW_BUILD_WAYLAND=0 -D CMAKE_EXPORT_COMPILE_COMMANDS=ON -S . -B $(BUILD_DIR) -G $(GENERATOR) 
 
 $(BUILD_DIR)/src/$(EXEC) $(BUILD_DIR)/test/tests: $(SRC_FILES) $(BUILD_DIR)/build.ninja
 	@cmake --build $(BUILD_DIR)
