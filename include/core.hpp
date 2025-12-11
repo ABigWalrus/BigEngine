@@ -3,6 +3,7 @@
 // #include "component.hpp"
 // #include "scene.hpp"
 // #include "glm/fwd.hpp"
+#include "glm/fwd.hpp"
 #include "util.hpp"
 
 #include <glm/glm.hpp>
@@ -15,6 +16,10 @@ class Entity {
   public:
     void add_child(Entity *child);
     void update();
+
+    void translate(glm::vec3 trans_vec);
+
+    void log_info();
 
     Entity(std::string name);
 
